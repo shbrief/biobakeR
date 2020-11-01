@@ -1,0 +1,40 @@
+---
+title: "bioBakeryR: Run bioBakery workflows in Terra"
+author: "Sehyun Oh"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Quickstart}
+  %\VignetteEncoding{UTF-8}
+output:
+  BiocStyle::html_document:
+    number_sections: no
+    toc: yes
+    toc_depth: 4
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Demonstrate how to run bioBakery workflow using R package, bioBakeryR.
+Three main procedures:
+
+0. `setAccount` function set up your Terra/Google account for billing(?) --> maybe
+make an individual user to create workspace by importing bioBakery WDL script and
+automatically link all the billing and outputs to that workspace?
+
+1. `runWorkflow` function takes user's inputs, `metadata.tsv` and `fastq_list.tsv`.
+For now, these input tables should be saved in Google bucket (I think Terra supports
+only GCP resources? Can we supply data from other platform, like AWS?).
+Add default input.json file as a part of the package and allow user to interact 
+directly with the json file or inherit default input parameters from it.
+Currently up to 10 sapmles are allowed to process without additional charge?    
+
+2. `checkProgress` function allows you to monitor the status of your workflow run.   
+
+3. `listOutput` function displays the list of your workflow outputs.    
+
+4. `getOutput` function allows you to download your outputs.
+
+
