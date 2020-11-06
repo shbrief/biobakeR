@@ -4,15 +4,21 @@
 \alias{launchWorkflow}
 \title{Launch workflow on Terra}
 \usage{
-launchWorkflow(accountEmail, billingProject, workspaceName)
+launchWorkflow(accountEmail, projectName, workspaceName)
 }
 \arguments{
 \item{accountEmail}{Email linked to Terra account}
 
-\item{billingProject}{Name of the billing project}
+\item{projectName}{Name of the billing project}
 
 \item{workspaceName}{Name of the workspace}
 }
 \description{
 Launch workflow on Terra
+}
+\examples{
+launchWorkflow(accountEmail = "shbrief@gmail.com",
+               projectName = "waldronlab-terra-rstudio",
+               workspaceName = "mtx_workflow_biobakery_ver3")
+
 }

@@ -4,23 +4,41 @@
 \alias{updateInput}
 \title{Update input}
 \usage{
-updateInput(inputPath, inputMetadataPath, billingProject, workspaceName)
+updateInput(
+  accountEmail,
+  inputPath,
+  inputMetadataPath,
+  projectName,
+  workspaceName
+)
 }
 \arguments{
+\item{accountEmail}{Email linked to Terra account}
+
 \item{inputPath}{A file path (in Google bucket) with a list of all of the read1 files.}
 
 \item{inputMetadataPath}{A file path (in Google bucket) with a metadata table}
 
-\item{billingProject}{Name of the billing project}
+\item{projectName}{Name of the billing project}
 
 \item{workspaceName}{Name of the workspace}
 }
 \description{
-bioBakeryR workflow takes input fastq file information as a file path (in Google bucket) 
-with a list of all of the read1 files. This file must have the full paths to all of the 
-files and is only expected to include the read1 files (not those for read2). The names 
-for each of the samples will be computed based on the read pair identifier and the input 
-file extension provided. For example a file named SAMPLE1.R1.fastq.gz would have a sample 
-name of "SAMPLE1", a read1 identifier of ".R1". and an extension of ".fastq.gz". 
+bioBakeryR workflow takes input fastq file information as a file path (in Google bucket)
+with a list of all of the read1 files. This file must have the full paths to all of the
+files and is only expected to include the read1 files (not those for read2). The names
+for each of the samples will be computed based on the read pair identifier and the input
+file extension provided. For example a file named SAMPLE1.R1.fastq.gz would have a sample
+name of "SAMPLE1", a read1 identifier of ".R1". and an extension of ".fastq.gz".
 It is expected that each sample with have two files (one file for each read of the pair).
+}
+\examples{
+input <- "gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/IBDMDB/ibdmdb_file_list.txt"
+inputMeta <- "gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/IBDMDB/ibdmdb_demo_metadata.txt"
+updateInput(accountEmail = "shbrief@gmail.com",
+            inputPath = input,
+            inputMetadataPath = inputMeta,
+            projectName = "waldronlab-terra-rstudio",
+            workspaceName = "mtx_workflow_biobakery_ver3")
+
 }

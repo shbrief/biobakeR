@@ -4,15 +4,25 @@
 \alias{currentInput}
 \title{Check the current input arguments}
 \usage{
-currentInput(accountEmail, billingProject, workspaceName, allInputs = FALSE)
+currentInput(accountEmail, projectName, workspaceName, allInputs = FALSE)
 }
 \arguments{
 \item{accountEmail}{Email linked to Terra account}
 
-\item{billingProject}{Name of the billing project}
+\item{projectName}{Name of the billing project}
 
 \item{workspaceName}{Name of the workspace}
+
+\item{allInputs}{Under the default (\code{FALSE}), the file path to the input
+files list and the paths to input files will be returned. If it's set to \code{TRUE}
+all the input information will be returned.}
 }
 \description{
 Check the current input arguments
+}
+\examples{
+currentInput(accountEmail = "shbrief@gmail.com",
+             projectName = "waldronlab-terra-rstudio",
+             workspaceName = "mtx_workflow_biobakery_ver3")
+
 }

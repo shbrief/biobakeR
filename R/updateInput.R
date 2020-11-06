@@ -11,36 +11,38 @@
 #' @import AnVIL
 #' @import httr
 #'
+#' @param accountEmail Email linked to Terra account
 #' @param inputPath A file path (in Google bucket) with a list of all of the read1 files.
 #' @param inputMetadataPath A file path (in Google bucket) with a metadata table
-#' @param billingProject Name of the billing project
+#' @param projectName Name of the billing project
 #' @param workspaceName Name of the workspace
 #'
-#' @example
+#' @examples
 #' input <- "gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/IBDMDB/ibdmdb_file_list.txt"
 #' inputMeta <- "gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/IBDMDB/ibdmdb_demo_metadata.txt"
-#' updataInput(inputPath = input,
+#' updateInput(accountEmail = "shbrief@gmail.com",
+#'             inputPath = input,
 #'             inputMetadataPath = inputMeta,
-#'             billingProject = "waldronlab-terra-rstudio",
+#'             projectName = "waldronlab-terra-rstudio",
 #'             workspaceName = "mtx_workflow_biobakery_ver3")
 #'
-#' @export
-updateInput <- function(inputPath, inputMetadataPath,
-                        billingProject, workspaceName) {
+updateInput <- function(accountEmail, inputPath, inputMetadataPath,
+                        projectName, workspaceName) {
     gcloud_account <- accountEmail
     terra <- Terra()
 
-    inputJson <- rjson::fromJSON(file = "extdata/wtx.json")
+    dir <- system.file("extdata", package = "bioBakeryR")
+    inputJson <- RJSONIO::fromJSON(file.path(dir, "wtx.json"))
     inputJson$workflowMTX.inputRead1Files <- inputPath
     if (exists(inputMetadataPath)) {
         inputJson$workflowMTX.inputMetadataFile <- inputMetadataPath
     }
 
     terra$overwriteWorkspaceMethodConfig(  ##################### issue with 2 same argument names
-        workspaceNamespace = billingProject,
+        workspaceNamespace = projectName,
         workspaceName = workspaceName,
         configNamespace = "mtx_workflow_biobakery_version3",
         configName = "mtx_workflow_biobakery_version3",
-        inputs = inputJson
+        inputs = as.list(inputJson)
     )
 }

@@ -3,21 +3,22 @@
 #' @import AnVIL
 #'
 #' @param accountEmail Email linked to Terra account
-#' @param billingProject Name of the billing project
+#' @param projectName Name of the billing project
 #' @param workspaceName Name of the workspace
 #'
-#' @example
+#' @examples
 #' launchWorkflow(accountEmail = "shbrief@gmail.com",
-#'                billingProject = "waldronlab-terra-rstudio",
+#'                projectName = "waldronlab-terra-rstudio",
 #'                workspaceName = "mtx_workflow_biobakery_ver3")
 #'
 #' @export
-launchWorkflow <- function(accountEmail, billingProject, workspaceName) {
+launchWorkflow <- function(accountEmail, projectName, workspaceName) {
     gcloud_account <- accountEmail
     terra <- Terra()
+    status_resp <- terra$status()
 
     resp <- terra$createSubmission(
-        workspaceNamespace = billingProject,
+        workspaceNamespace = projectName,
         workspaceName = workspaceName,
         methodConfigurationNamespace = "mtx_workflow_biobakery_version3",
         methodConfigurationName = "mtx_workflow_biobakery_version3",

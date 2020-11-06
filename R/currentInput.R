@@ -4,16 +4,19 @@
 #' @import httr
 #'
 #' @param accountEmail Email linked to Terra account
-#' @param billingProject Name of the billing project
+#' @param projectName Name of the billing project
 #' @param workspaceName Name of the workspace
+#' @param allInputs Under the default (\code{FALSE}), the file path to the input
+#' files list and the paths to input files will be returned. If it's set to \code{TRUE}
+#' all the input information will be returned.
 #'
-#' @example
+#' @examples
 #' currentInput(accountEmail = "shbrief@gmail.com",
-#'              billingProject = "waldronlab-terra-rstudio",
+#'              projectName = "waldronlab-terra-rstudio",
 #'              workspaceName = "mtx_workflow_biobakery_ver3")
 #'
 #' @export
-currentInput <- function(accountEmail, billingProject, workspaceName,
+currentInput <- function(accountEmail, projectName, workspaceName,
                          allInputs = FALSE) {
     gcloud_account <- accountEmail
     terra <- Terra()
@@ -24,7 +27,7 @@ currentInput <- function(accountEmail, billingProject, workspaceName,
     # }
 
     resp <- terra$getWorkspaceMethodConfig(
-        workspaceNamespace = billingProject,
+        workspaceNamespace = projectName,
         workspaceName = workspaceName,
         configNamespace = "mtx_workflow_biobakery_version3",
         configName = "mtx_workflow_biobakery_version3"
@@ -34,7 +37,8 @@ currentInput <- function(accountEmail, billingProject, workspaceName,
     }
 
     ## Parse the output
-    parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
+    parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "UTF-8"),
+                                 simplifyVector = FALSE)
 
     if (http_error(resp)) {
         stop(sprintf("Terra API request failed [%s]\n%s\n<%s>",
@@ -48,6 +52,7 @@ currentInput <- function(accountEmail, billingProject, workspaceName,
     else {
         res <- parsed$inputs$workflowMTX.inputRead1Files
         res <- gsub("\"", "", res)
-        return(res)
+        structure(list(inputListPath = res,
+                       inputFilePath = gsutil_cat(res)))
     }
 }

@@ -1,0 +1,174 @@
+---
+title: "bioBakeryR: Run bioBakery workflows in Terra"
+author: "Sehyun Oh"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+vignette: >
+  %\VignetteIndexEntry{How to use}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+output:
+  BiocStyle::html_document:
+    number_sections: no
+    toc: yes
+    toc_depth: 4
+editor_options: 
+  chunk_output_type: inline
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=FALSE}
+suppressPackageStartupMessages({
+  library(bioBakeryR)
+  library(AnVIL)
+})
+```
+
+# Preview
+Demonstrate how to run bioBakery workflow using R package, bioBakeryR.
+Three main procedures:
+
+0. `setAccount` function set up your Terra/Google account for billing(?)    
+
+1. `cloneWorkspace` function copies the reference workspace containing bioBakery
+workflow. Users need to provide their project name and the unique name for the 
+copied workspace.
+
+2. `updateInput` function takes user's inputs, `metadata.tsv` and `fastq_list.tsv`.
+You can check the current input information using `currentInput` function.
+
+3. `launchWorkflow` function launch the workflow in Terra. You can abort the 
+submission using  `abortSubmission` function.   
+--> For now, the input table and input/metadata files should be saved in Google bucket 
+(I think Terra supports only GCP resources? Can we supply data from other platform, like AWS?).
+
+4. `monitorSubmission` function allows you to monitor the status of your workflow run.   
+
+5. `listOutput` function displays the list of your workflow outputs.    
+
+6. `getOutput` function allows you to download your outputs.
+
+
+Here are the basic input parameters used in this example.
+
+```{r}
+accountEmail = "shbrief@gmail.com"
+projectName = "waldronlab-terra-rstudio"
+workspaceName = "mtx_workflow_biobakery_ver3"
+```
+
+
+# Setup Terra Account
+# Clone Workspace
+```{r}
+cloneWorkspace(accountEmail, projectName, workspaceName)
+cloneWorkspace(accountEmail, projectName, workspaceName = "test")
+```
+
+```{r echo=FALSE, message=FALSE}
+## Delete test workspace
+terra <- Terra()
+resp <- terra$deleteWorkspace(workspaceNamespace = projectName,
+                              workspaceName = "test")
+rm(resp)
+```
+
+# Update Input
+Review the current input data.
+```{r}
+currentInput(accountEmail, projectName, workspaceName)
+```
+
+Before launching the workflow, you should provide the correct input information 
+using `updateInput` function.
+
+```{r eval=FALSE}
+## Still need to figure out the redundant argument, 'workspaceName'
+input <- "gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/IBDMDB/ibdmdb_file_list.txt"
+inputMeta <- "gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/IBDMDB/ibdmdb_demo_metadata.txt"
+updateInput(inputPath = input,
+            inputMetadataPath = inputMeta,
+            projectName, workspaceName)
+```
+
+Here, `input` is a table containing the input file's Google bucket location. This
+example file contains 6 fastq files.
+```{r echo=FALSE}
+input <- "gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/IBDMDB/ibdmdb_file_list.txt"
+inputMeta <- "gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/IBDMDB/ibdmdb_demo_metadata.txt"
+```
+
+```{r}
+read.table(gsutil_pipe(input), sep  = "\t")
+```
+
+`inputMeta` contains the metadata of the samples. 
+```{r warning=FALSE}
+read.table(gsutil_pipe(inputMeta), sep = "\t", header = TRUE)
+```
+
+
+
+# Launch Workflow
+```{r}
+launchWorkflow(accountEmail, projectName, workspaceName)
+```
+
+# Monitor Progress
+```{r}
+recent_submission <- monitorSubmission(accountEmail, projectName, workspaceName)
+recent_submission
+```
+
+If you want to abort the submitted job, you can  
+```{r}
+recent_submissionId <- recent_submission$submissionId
+abortSubmission(accountEmail, projectName, workspaceName,
+                submissionId = recent_submissionId)
+```
+
+
+# List Outputs (need to review)
+For the demonstration purpose, we aborted the launched workflow above. This workspace
+had a successful run with the same input already. To search that, we screened all
+the previous submission status and found the one with 'Done' status.
+
+```{r}
+jobs <- monitorSubmission(accountEmail, projectName, workspaceName,
+                          mostRecentOnly = FALSE)
+jobs_done <- which(jobs["status",]  == "Done")
+jobs[,jobs_done]
+```
+
+To access the output of the submitted job, you need a submission Id.
+
+```{r}
+submission_id <- jobs[, jobs_done[1]]$submissionId
+submission_id
+```
+
+List of the output files
+```{r collapse=TRUE}
+# This takes a while if you don't specify the keyword.
+listOutput(accountEmail, projectName, workspaceName, submissionId = submission_id)
+listOutput(accountEmail, projectName, workspaceName, submissionId = submission_id, 
+           keyword = "humann")
+```
+
+Check the outputs
+```{r warning=FALSE, collapse=TRUE}
+tableHead("HSM7J4NY_genefamilies_relab.tsv", n = 6,
+          accountEmail, projectName, workspaceName, 
+          submissionId = submission_id)   # gene families relative abundance
+tableHead("HSM7J4NY_pathcoverage.tsv", n = 6,
+          accountEmail, projectName, workspaceName, 
+          submissionId = submission_id)   # pathcoverage
+tableHead("HSM7J4NY.tsv", n = 6,
+          accountEmail, projectName, workspaceName, 
+          submissionId = submission_id)   # metaphlan_bugs_list
+```
+
+
+# Get Outputs
