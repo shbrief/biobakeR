@@ -4,12 +4,12 @@
 \alias{abortSubmission}
 \title{Abort Terra Submission}
 \usage{
-abortSubmission(accountEmail, projectName, workspaceName, submissionId)
+abortSubmission(accountEmail, billingProjectName, workspaceName, submissionId)
 }
 \arguments{
 \item{accountEmail}{Email linked to Terra account}
 
-\item{projectName}{Name of the billing project}
+\item{billingProjectName}{Name of the billing project}
 
 \item{workspaceName}{Name of the workspace}
 

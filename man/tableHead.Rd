@@ -8,7 +8,7 @@ tableHead(
   x,
   n = 6,
   accountEmail,
-  projectName,
+  billingProjectName,
   workspaceName,
   submissionId = NULL
 )
@@ -20,7 +20,7 @@ tableHead(
 
 \item{accountEmail}{Email linked to Terra account}
 
-\item{projectName}{Name of the billing project}
+\item{billingProjectName}{Name of the billing project}
 
 \item{workspaceName}{Name of the workspace}
 

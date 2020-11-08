@@ -6,7 +6,7 @@
 \usage{
 listOutput(
   accountEmail,
-  projectName,
+  billingProjectName,
   workspaceName,
   submissionId = NULL,
   keyword = NULL
@@ -15,7 +15,7 @@ listOutput(
 \arguments{
 \item{accountEmail}{Email linked to Terra account}
 
-\item{projectName}{Name of the billing project}
+\item{billingProjectName}{Name of the billing project}
 
 \item{workspaceName}{Name of the workspace}
 

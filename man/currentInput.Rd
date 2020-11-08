@@ -4,12 +4,17 @@
 \alias{currentInput}
 \title{Check the current input arguments}
 \usage{
-currentInput(accountEmail, projectName, workspaceName, allInputs = FALSE)
+currentInput(
+  accountEmail,
+  billingProjectName,
+  workspaceName,
+  allInputs = FALSE
+)
 }
 \arguments{
 \item{accountEmail}{Email linked to Terra account}
 
-\item{projectName}{Name of the billing project}
+\item{billingProjectName}{Name of the billing project}
 
 \item{workspaceName}{Name of the workspace}
 
@@ -22,7 +27,7 @@ Check the current input arguments
 }
 \examples{
 currentInput(accountEmail = "shbrief@gmail.com",
-             projectName = "waldronlab-terra-rstudio",
+             billingProjectName = "waldronlab-terra-rstudio",
              workspaceName = "mtx_workflow_biobakery_ver3")
 
 }

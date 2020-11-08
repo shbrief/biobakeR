@@ -3,17 +3,17 @@
 #' @import AnVIL
 #'
 #' @param accountEmail Email linked to Terra account
-#' @param projectName Name of the billing project
+#' @param billingProjectName Name of the billing project
 #' @param workspaceName Name of the workspace
 #' @param submissionId Submission ID
 #'
 #' @export
-abortSubmission <- function(accountEmail, projectName, workspaceName,
+abortSubmission <- function(accountEmail, billingProjectName, workspaceName,
                             submissionId) {
     gcloud_account <- accountEmail
     terra <- Terra()
 
-    resp <- terra$abortSubmission(workspaceNamespace = projectName,
+    resp <- terra$abortSubmission(workspaceNamespace = billingProjectName,
                                   workspaceName = workspaceName,
                                   submissionId = submissionId)
 

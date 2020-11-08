@@ -6,7 +6,7 @@
 \usage{
 monitorSubmission(
   accountEmail,
-  projectName,
+  billingProjectName,
   workspaceName,
   mostRecentOnly = TRUE
 )
@@ -14,7 +14,7 @@ monitorSubmission(
 \arguments{
 \item{accountEmail}{Email linked to Terra account}
 
-\item{projectName}{Name of the billing project}
+\item{billingProjectName}{Name of the billing project}
 
 \item{workspaceName}{Name of the workspace}
 
@@ -31,7 +31,7 @@ Check the status of submitted jobs
 }
 \examples{
 monitorSubmission(accountEmail = "shbrief@gmail.com",
-                  projectName = "waldronlab-terra-rstudio",
+                  billingProjectName = "waldronlab-terra-rstudio",
                   workspaceName = "mtx_workflow_biobakery_ver3")
 
 }

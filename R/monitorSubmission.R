@@ -4,7 +4,7 @@
 #' @import dplyr
 #'
 #' @param accountEmail Email linked to Terra account
-#' @param projectName Name of the billing project
+#' @param billingProjectName Name of the billing project
 #' @param workspaceName Name of the workspace
 #' @param mostRecentOnly Under the default (\code{TRUE}), the status of only the
 #' lastest submission is returned. If it's set to \code{FALSE}, all the submission
@@ -15,17 +15,17 @@
 #'
 #' @examples
 #' monitorSubmission(accountEmail = "shbrief@gmail.com",
-#'                   projectName = "waldronlab-terra-rstudio",
+#'                   billingProjectName = "waldronlab-terra-rstudio",
 #'                   workspaceName = "mtx_workflow_biobakery_ver3")
 #'
 #' @export
-monitorSubmission <- function(accountEmail, projectName, workspaceName,
+monitorSubmission <- function(accountEmail, billingProjectName, workspaceName,
                               mostRecentOnly = TRUE) {
     gcloud_account <- accountEmail
     terra <- Terra()
     status <- terra$status
 
-    resp <- terra$listSubmissions(workspaceNamespace = projectName,
+    resp <- terra$listSubmissions(workspaceNamespace = billingProjectName,
                                   workspaceName = workspaceName)
 
     if (resp$status_code == 404) {stop("Workspace not found.")}

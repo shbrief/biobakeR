@@ -4,12 +4,12 @@
 \alias{cloneWorkspace}
 \title{Clone bioBakery workflow template}
 \usage{
-cloneWorkspace(accountEmail, projectName, workspaceName)
+cloneWorkspace(accountEmail, billingProjectName, workspaceName)
 }
 \arguments{
 \item{accountEmail}{Email linked to Terra account}
 
-\item{projectName}{Name of the billing project}
+\item{billingProjectName}{Name of the billing project}
 
 \item{workspaceName}{Name of the workspace}
 }
@@ -18,7 +18,7 @@ Clone bioBakery workflow template
 }
 \examples{
 cloneWorkspace(accountEmail = "shbrief@gmail.com",
-              projectName = "waldronlab-terra-rstudio",
+              billingProjectName = "waldronlab-terra-rstudio",
               workspaceName = "mtx_workflow_biobakery_ver3")
 
 }

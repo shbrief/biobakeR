@@ -6,7 +6,7 @@
 \usage{
 getOutput(
   accountEmail,
-  projectName,
+  billingProjectName,
   workspaceName,
   submissionId = NULL,
   keyword = NULL,

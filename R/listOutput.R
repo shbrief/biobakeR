@@ -2,7 +2,7 @@
 #'
 #' @import AnVIL
 #' @param accountEmail Email linked to Terra account
-#' @param projectName Name of the billing project
+#' @param billingProjectName Name of the billing project
 #' @param workspaceName Name of the workspace
 #' @param submissionId Submission Id. If it's not provided, the most recent
 #' submission id will be used.
@@ -10,12 +10,12 @@
 #' names of all the output files with \code{.tsv} extension will be returned.
 #'
 #' @export
-listOutput <- function(accountEmail, projectName, workspaceName,
+listOutput <- function(accountEmail, billingProjectName, workspaceName,
                        submissionId = NULL, keyword = NULL) {
     gcloud_account(accountEmail)
-    gcloud_project(projectName)
+    gcloud_project(billingProjectName)
 
-    avworkspace_namespace(projectName)
+    avworkspace_namespace(billingProjectName)
     avworkspace_name(workspaceName)
 
     outputs <- avworkflow_files(submissionId = submissionId)

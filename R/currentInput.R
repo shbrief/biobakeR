@@ -4,7 +4,7 @@
 #' @import httr
 #'
 #' @param accountEmail Email linked to Terra account
-#' @param projectName Name of the billing project
+#' @param billingProjectName Name of the billing project
 #' @param workspaceName Name of the workspace
 #' @param allInputs Under the default (\code{FALSE}), the file path to the input
 #' files list and the paths to input files will be returned. If it's set to \code{TRUE}
@@ -12,11 +12,11 @@
 #'
 #' @examples
 #' currentInput(accountEmail = "shbrief@gmail.com",
-#'              projectName = "waldronlab-terra-rstudio",
+#'              billingProjectName = "waldronlab-terra-rstudio",
 #'              workspaceName = "mtx_workflow_biobakery_ver3")
 #'
 #' @export
-currentInput <- function(accountEmail, projectName, workspaceName,
+currentInput <- function(accountEmail, billingProjectName, workspaceName,
                          allInputs = FALSE) {
     gcloud_account <- accountEmail
     terra <- Terra()
@@ -27,7 +27,7 @@ currentInput <- function(accountEmail, projectName, workspaceName,
     # }
 
     resp <- terra$getWorkspaceMethodConfig(
-        workspaceNamespace = projectName,
+        workspaceNamespace = billingProjectName,
         workspaceName = workspaceName,
         configNamespace = "mtx_workflow_biobakery_version3",
         configName = "mtx_workflow_biobakery_version3"

@@ -5,12 +5,12 @@
 #' fname <- "wmgx_report.pdf"
 #'
 #'
-getOutput <- function(accountEmail, projectName, workspaceName,
+getOutput <- function(accountEmail, billingProjectName, workspaceName,
                       submissionId = NULL, keyword = NULL, dest_dir = ".") {
     gcloud_account(accountEmail)
-    gcloud_project(projectName)
+    gcloud_project(billingProjectName)
 
-    avworkspace_namespace(projectName)
+    avworkspace_namespace(billingProjectName)
     avworkspace_name(workspaceName)
 
     if (is.null(keyword)) {stop("You should provide keyword argument.")}

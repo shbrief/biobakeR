@@ -1,23 +1,23 @@
 #' Clone bioBakery workflow template
 #'
 #' @param accountEmail Email linked to Terra account
-#' @param projectName Name of the billing project
+#' @param billingProjectName Name of the billing project
 #' @param workspaceName Name of the workspace
 #'
 #' @examples
 #'cloneWorkspace(accountEmail = "shbrief@gmail.com",
-#'               projectName = "waldronlab-terra-rstudio",
+#'               billingProjectName = "waldronlab-terra-rstudio",
 #'               workspaceName = "mtx_workflow_biobakery_ver3")
 #'
 #' @export
-cloneWorkspace <- function(accountEmail, projectName, workspaceName) {
+cloneWorkspace <- function(accountEmail, billingProjectName, workspaceName) {
     gcloud_account <- accountEmail
     terra <- Terra()
 
     resp <- terra$cloneWorkspace(
         workspaceNamespace = "waldronlab-terra-rstudio",
         workspaceName = "mtx_workflow_biobakery_ver3",
-        namespace = projectName,
+        namespace = billingProjectName,
         name = workspaceName,
         attributes = AnVIL::empty_object
     )
