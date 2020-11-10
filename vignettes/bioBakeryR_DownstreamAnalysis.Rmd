@@ -1,0 +1,244 @@
+---
+title: "bioBakeryR: Downstream analysis using bioBakery outputs"
+author: "Sehyun Oh"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  BiocStyle::html_document:
+    toc: true
+    toc_float: false
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo=FALSE}
+suppressPackageStartupMessages({
+  library(bioBakeryR)
+  library(AnVIL)
+  library(SummarizedExperiment)
+})
+source('~/data2/bioBakeryR/R/getOutput.R')
+dest_dir <- "~/data2/bioBakeryR/inst/extdata/outputs"
+data_dir <- "~/data2/bioBakeryR/inst/extdata/outputs/data"
+# submission_id = "0ade77db-665d-4259-b6ca-2572ad0e3a52"
+```
+
+
+# Setup
+```{r}
+accountEmail = "shbrief@gmail.com"
+billingProjectName = "waldronlab-terra-rstudio"
+workspaceName = "mtx_workflow_biobakery_ver3"
+```
+
+# Most recent outputs
+```{r}
+jobs <- monitorSubmission(accountEmail, billingProjectName, workspaceName,
+                          mostRecentOnly = FALSE)    # all the runs
+jobs_done <- which(jobs["status",]  == "Done")    # successfully done runs
+submission_id <- jobs[, jobs_done[1]]$submissionId   # most recent, successfully run
+submission_id
+```
+
+## Example list of sample-specific outputs
+```{r}
+listOutput(accountEmail, billingProjectName, workspaceName, submission_id, 
+           keyword = "HSM7J4NY.*.tsv")
+```
+
+```{r eval=FALSE}
+getOutput(accountEmail, billingProjectName, workspaceName, submission_id, 
+          keyword = "HSM7J4NY.*.tsv", dest_dir = dest_dir)
+unzip(file.path(dest_dir, "ibdmdb_test_visualizations.zip"), exdir = dest_dir)
+```
+
+### HSM7J4NY_genefamilies.tsv
+```{r echo=FALSE}
+fpath <- file.path(dest_dir, "HSM7J4NY_genefamilies.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### HSM7J4NY_pathabundance.tsv
+```{r echo=FALSE}
+fpath <- file.path(dest_dir, "HSM7J4NY_pathabundance.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### HSM7J4NY_pathcoverage.tsv
+```{r echo=FALSE}
+fpath <- file.path(dest_dir, "HSM7J4NY_pathcoverage.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### HSM7J4NY_ecs.tsv
+```{r echo=FALSE}
+fpath <- file.path(dest_dir, "HSM7J4NY_ecs.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### HSM7J4NY_kos.tsv
+```{r echo=FALSE}
+fpath <- file.path(dest_dir, "HSM7J4NY_kos.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### HSM7J4NY_ecs_relab.tsv
+```{r echo=FALSE}
+fpath <- file.path(dest_dir, "HSM7J4NY_ecs_relab.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### HSM7J4NY_genefamilies_relab.tsv
+```{r echo=FALSE}
+fpath <- file.path(dest_dir, "HSM7J4NY_ecs_relab.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### HSM7J4NY_pathabundance_relab.tsv
+```{r echo=FALSE}
+fpath <- file.path(dest_dir, "HSM7J4NY_ecs_relab.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### HSM7J4NY.tsv
+```{r echo=FALSE}
+fpath <- file.path(dest_dir, "HSM7J4NY.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE,  skip =  3)
+head(x, 3)
+```
+
+
+
+## Download recent outputs for visualization
+```{r echo=FALSE, eval=FALSE}
+listOutput(accountEmail, billingProjectName, workspaceName, submission_id, 
+           keyword = "visualization")
+```
+
+```{r eval=FALSE}
+dest_dir <- "~/data2/bioBakeryR/inst/extdata/outputs"
+getOutput(accountEmail, billingProjectName, workspaceName, submission_id, 
+          keyword = "visualization", dest_dir = dest_dir)
+unzip(file.path(dest_dir, "ibdmdb_test_visualizations.zip"), exdir = dest_dir)
+```
+
+```{r}
+list.files(data_dir)
+```
+
+### humann_feature_counts.tsv
+```{r echo=FALSE}
+fpath <- file.path(data_dir, "humann_feature_counts.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### humann_read_and_species_count_table.tsv
+```{r echo=FALSE}
+fpath <- file.path(data_dir, "humann_read_and_species_count_table.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### kneaddata_read_count_table.tsv
+```{r echo=FALSE}
+fpath <- file.path(data_dir, "kneaddata_read_count_table.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### metaphlan_taxonomic_profiles.tsv
+```{r echo=FALSE}
+fpath <- file.path(data_dir, "metaphlan_taxonomic_profiles.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### microbial_counts_table.tsv
+```{r echo=FALSE}
+fpath <- file.path(data_dir, "microbial_counts_table.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### pathabundance_relab.tsv
+```{r echo=FALSE}
+fpath <- file.path(data_dir, "pathabundance_relab.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### qc_counts_orphans_table.tsv
+```{r echo=FALSE}
+fpath <- file.path(data_dir, "qc_counts_orphans_table.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### qc_counts_pairs_table.tsv
+```{r echo=FALSE}
+fpath <- file.path(data_dir, "qc_counts_pairs_table.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### taxa_counts_table.tsv
+```{r echo=FALSE}
+fpath <- file.path(data_dir, "taxa_counts_table.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+### top_average_pathways_names.tsv
+```{r echo=FALSE}
+fpath <- file.path(data_dir, "top_average_pathways_names.tsv")
+x <- read.csv(fpath, sep = "\t", header = TRUE)
+head(x, 3)
+```
+
+
+
+
+# Make SummarizedExperiment
+## Taxonomy profile
+```{r}
+taxo_profile <- read.csv(file.path(data_dir, "metaphlan_taxonomic_profiles.tsv"),
+                         sep = "\t", header = TRUE)
+
+## Taxonomy as rownames
+taxo_profile <- tibble::column_to_rownames(taxo_profile, var = "X..taxonomy")
+
+## Metadata
+meta <- read.table("~/data2/bioBakeryR/inst/extdata/ibdmdb_demo_metadata.txt", 
+                   sep = "\t", header = TRUE)
+colData <- DataFrame(meta)
+```
+
+```{r}
+se <- SummarizedExperiment(assays = list(taxo_profile = taxo_profile),
+                           colData = colData)
+se
+```
+
+
+## Pathway abundance
+```{r}
+path_abun <- read.csv(file.path(data_dir, "pathabundance_relab.tsv"),
+                      sep = "\t", header = TRUE)
+
+## Pathway as rownames
+path_abun <- tibble::column_to_rownames(path_abun, var = "X..Pathway")
+colnames(path_abun) <- gsub("_Abundance", "", colnames(path_abun))
+
+head(path_abun)
+```

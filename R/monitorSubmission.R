@@ -21,7 +21,8 @@
 #' @export
 monitorSubmission <- function(accountEmail, billingProjectName, workspaceName,
                               mostRecentOnly = TRUE) {
-    gcloud_account <- accountEmail
+    gcloud_account(accountEmail)
+    gcloud_project(billingProjectName)
     terra <- Terra()
     status <- terra$status
 

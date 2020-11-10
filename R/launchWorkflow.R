@@ -13,7 +13,8 @@
 #'
 #' @export
 launchWorkflow <- function(accountEmail, billingProjectName, workspaceName) {
-    gcloud_account <- accountEmail
+    gcloud_account(accountEmail)
+    gcloud_project(billingProjectName)
     terra <- Terra()
     status_resp <- terra$status()
 
@@ -25,5 +26,5 @@ launchWorkflow <- function(accountEmail, billingProjectName, workspaceName) {
         useCallCache = TRUE)
 
     if (resp$status_code == 201) {"Workflow is succesfully launched."}
-    else {"Workflow luanching is failed."}
+    else {"Workflow launching is failed."}
 }

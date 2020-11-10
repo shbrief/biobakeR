@@ -6,8 +6,9 @@
 #' @param workspaceName Name of the workspace
 #' @param submissionId Submission Id. If it's not provided, the most recent
 #' submission id will be used.
-#' @param keyword A keyword in the output file name. Under the default \code{NULL},
-#' names of all the output files with \code{.tsv} extension will be returned.
+#' @param keyword A character string containing a regular exrpession to be matched
+#' in the output file name. Under the default \code{NULL}, the names of all the output
+#' files with \code{.tsv} extension will be returned.
 #'
 #' @export
 listOutput <- function(accountEmail, billingProjectName, workspaceName,

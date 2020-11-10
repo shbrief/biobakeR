@@ -6,9 +6,9 @@
 #' @param accountEmail Email linked to Terra account
 #' @param billingProjectName Name of the billing project
 #' @param workspaceName Name of the workspace
-#' @param allInputs Under the default (\code{FALSE}), the file path to the input
-#' files list and the paths to input files will be returned. If it's set to \code{TRUE}
-#' all the input information will be returned.
+#' @param inputOnly Under the default (\code{TRUE}), the file path to the input
+#' files list and the paths to input files will be returned. If it's set to \code{FALSE},
+#' the whole method configuration will be returned.
 #'
 #' @examples
 #' currentInput(accountEmail = "shbrief@gmail.com",
@@ -17,8 +17,9 @@
 #'
 #' @export
 currentInput <- function(accountEmail, billingProjectName, workspaceName,
-                         allInputs = FALSE) {
-    gcloud_account <- accountEmail
+                         inputOnly = TRUE) {
+    gcloud_account(accountEmail)
+    gcloud_project(billingProjectName)
     terra <- Terra()
 
     # status <- terra$status()
@@ -48,11 +49,16 @@ currentInput <- function(accountEmail, billingProjectName, workspaceName,
              call. = FALSE)
     }
 
-    if (isTRUE(allInputs)) {return(parsed)}
-    else {
-        res <- parsed$inputs$workflowMTX.inputRead1Files
+    ## Return the whole method configuration
+    if (isFALSE(inputOnly)) {return(parsed)}
+
+    ## Return only the input part of the method configuration
+    res <- parsed$inputs$workflowMTX.inputRead1Files
+    if (nzchar(res)) {
         res <- gsub("\"", "", res)
         structure(list(inputListPath = res,
                        inputFilePath = gsutil_cat(res)))
+    } else {
+        return(res)
     }
 }

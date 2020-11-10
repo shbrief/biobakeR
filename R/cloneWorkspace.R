@@ -11,7 +11,8 @@
 #'
 #' @export
 cloneWorkspace <- function(accountEmail, billingProjectName, workspaceName) {
-    gcloud_account <- accountEmail
+    gcloud_account(accountEmail)
+    gcloud_project(billingProjectName)
     terra <- Terra()
 
     resp <- terra$cloneWorkspace(

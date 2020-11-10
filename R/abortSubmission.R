@@ -10,7 +10,8 @@
 #' @export
 abortSubmission <- function(accountEmail, billingProjectName, workspaceName,
                             submissionId) {
-    gcloud_account <- accountEmail
+    gcloud_account(accountEmail)
+    gcloud_project(billingProjectName)
     terra <- Terra()
 
     resp <- terra$abortSubmission(workspaceNamespace = billingProjectName,

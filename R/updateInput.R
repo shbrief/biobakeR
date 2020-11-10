@@ -65,7 +65,8 @@ updateInput <- function(accountEmail, billingProjectName, workspaceName,
                         InputRead2Identifier,
                         InputRead1Files,
                         InputMetadataFile = NULL) {
-    gcloud_account <- accountEmail
+    gcloud_account(accountEmail)
+    gcloud_project(billingProjectName)
     terra <- Terra()
 
     required <- c(AdapterType,

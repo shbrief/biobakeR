@@ -2,17 +2,11 @@
 title: "bioBakeryR: Run bioBakery workflows in Terra"
 author: "Sehyun Oh"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
-vignette: >
-  %\VignetteIndexEntry{How to use}
-  %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
 output:
   BiocStyle::html_document:
-    number_sections: no
-    toc: yes
-    toc_depth: 4
-editor_options: 
-  chunk_output_type: inline
+    toc: true
+    toc_float: false
+    toc_depth: 3
 ---
 
 ```{r setup, include=FALSE}
@@ -23,6 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 suppressPackageStartupMessages({
   library(bioBakeryR)
   library(AnVIL)
+  # library(jsonlite)   # new AnVIL update seems to miss jsonlite::unbox
 })
 ```
 
@@ -55,7 +50,7 @@ Here are the basic input parameters used in this example.
 
 ```{r}
 accountEmail = "shbrief@gmail.com"
-projectName = "waldronlab-terra-rstudio"
+billingProjectName = "waldronlab-terra-rstudio"
 workspaceName = "mtx_workflow_biobakery_ver3"
 ```
 
@@ -63,14 +58,14 @@ workspaceName = "mtx_workflow_biobakery_ver3"
 # Setup Terra Account
 # Clone Workspace
 ```{r}
-cloneWorkspace(accountEmail, projectName, workspaceName)
-cloneWorkspace(accountEmail, projectName, workspaceName = "test")
+cloneWorkspace(accountEmail, billingProjectName, workspaceName)
+cloneWorkspace(accountEmail, billingProjectName, workspaceName = "test")
 ```
 
 ```{r echo=FALSE, message=FALSE}
 ## Delete test workspace
 terra <- Terra()
-resp <- terra$deleteWorkspace(workspaceNamespace = projectName,
+resp <- terra$deleteWorkspace(workspaceNamespace = billingProjectName,
                               workspaceName = "test")
 rm(resp)
 ```
@@ -78,7 +73,7 @@ rm(resp)
 # Update Input
 Review the current input data.
 ```{r}
-currentInput(accountEmail, projectName, workspaceName)
+currentInput(accountEmail, billingProjectName, workspaceName)
 ```
 
 Before launching the workflow, you should provide the correct input information 
@@ -90,7 +85,7 @@ input <- "gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/IBDMDB/ibdmdb_file_list.t
 inputMeta <- "gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/IBDMDB/ibdmdb_demo_metadata.txt"
 updateInput(inputPath = input,
             inputMetadataPath = inputMeta,
-            projectName, workspaceName)
+            billingProjectName, workspaceName)
 ```
 
 Here, `input` is a table containing the input file's Google bucket location. This
@@ -113,19 +108,19 @@ read.table(gsutil_pipe(inputMeta), sep = "\t", header = TRUE)
 
 # Launch Workflow
 ```{r}
-launchWorkflow(accountEmail, projectName, workspaceName)
+launchWorkflow(accountEmail, billingProjectName, workspaceName)
 ```
 
 # Monitor Progress
 ```{r}
-recent_submission <- monitorSubmission(accountEmail, projectName, workspaceName)
+recent_submission <- monitorSubmission(accountEmail, billingProjectName, workspaceName)
 recent_submission
 ```
 
 If you want to abort the submitted job, you can  
 ```{r}
 recent_submissionId <- recent_submission$submissionId
-abortSubmission(accountEmail, projectName, workspaceName,
+abortSubmission(accountEmail, billingProjectName, workspaceName,
                 submissionId = recent_submissionId)
 ```
 
@@ -136,7 +131,7 @@ had a successful run with the same input already. To search that, we screened al
 the previous submission status and found the one with 'Done' status.
 
 ```{r}
-jobs <- monitorSubmission(accountEmail, projectName, workspaceName,
+jobs <- monitorSubmission(accountEmail, billingProjectName, workspaceName,
                           mostRecentOnly = FALSE)
 jobs_done <- which(jobs["status",]  == "Done")
 jobs[,jobs_done]
@@ -152,21 +147,21 @@ submission_id
 List of the output files
 ```{r collapse=TRUE}
 # This takes a while if you don't specify the keyword.
-listOutput(accountEmail, projectName, workspaceName, submissionId = submission_id)
-listOutput(accountEmail, projectName, workspaceName, submissionId = submission_id, 
+listOutput(accountEmail, billingProjectName, workspaceName, submissionId = submission_id)
+listOutput(accountEmail, billingProjectName, workspaceName, submissionId = submission_id, 
            keyword = "humann")
 ```
 
 Check the outputs
 ```{r warning=FALSE, collapse=TRUE}
 tableHead("HSM7J4NY_genefamilies_relab.tsv", n = 6,
-          accountEmail, projectName, workspaceName, 
+          accountEmail, billingProjectName, workspaceName, 
           submissionId = submission_id)   # gene families relative abundance
 tableHead("HSM7J4NY_pathcoverage.tsv", n = 6,
-          accountEmail, projectName, workspaceName, 
+          accountEmail, billingProjectName, workspaceName, 
           submissionId = submission_id)   # pathcoverage
 tableHead("HSM7J4NY.tsv", n = 6,
-          accountEmail, projectName, workspaceName, 
+          accountEmail, billingProjectName, workspaceName, 
           submissionId = submission_id)   # metaphlan_bugs_list
 ```
 
