@@ -1,0 +1,51 @@
+# Pathway	Average abundance	Variance
+PWY-1042: glycolysis IV (plant cytosol)	0.0399	0.00102
+ANAGLYCOLYSIS-PWY: glycolysis III (from glucose)	0.0232	0.000225
+PWY-7219: adenosine ribonucleotides de novo biosynthesis	0.0231	0.00018
+PWY-7221: guanosine ribonucleotides de novo biosynthesis	0.0201	0.000151
+SER-GLYSYN-PWY: superpathway of L-serine and glycine biosynthesis I	0.019	0.000147
+HISDEG-PWY: L-histidine degradation I	0.0181	0.000209
+PWY-3841: folate transformations II	0.0172	6.59e-05
+PWY-7228: superpathway of guanosine nucleotides de novo biosynthesis I	0.0147	8.82e-05
+PWY-7199: pyrimidine deoxyribonucleosides salvage	0.0147	0.00012
+DTDPRHAMSYN-PWY: dTDP-L-rhamnose biosynthesis I	0.0147	6.58e-05
+PWY-5484: glycolysis II (from fructose 6-phosphate)	0.0146	0.000173
+PWY-5973: cis-vaccenate biosynthesis	0.0146	3.66e-05
+PWY-5695: urate biosynthesis/inosine 5'-phosphate degradation	0.0143	5.81e-06
+PWY-5030: L-histidine degradation III	0.014	0.000111
+1CMET2-PWY: N10-formyl-tetrahydrofolate biosynthesis	0.0138	2.12e-05
+GLYCOLYSIS: glycolysis I (from glucose 6-phosphate)	0.0132	9.25e-05
+PWY-2942: L-lysine biosynthesis III	0.0129	2.74e-05
+PWY-7663: gondoate biosynthesis (anaerobic)	0.0127	2.11e-05
+PWY-5667: CDP-diacylglycerol biosynthesis I	0.0126	1.62e-05
+PWY0-1319: CDP-diacylglycerol biosynthesis II	0.0126	1.62e-05
+PWY-6737: starch degradation V	0.0125	1.26e-05
+PWY-7237: myo-, chiro- and scillo-inositol degradation	0.0123	0.00027
+PWY-6609: adenine and adenosine salvage III	0.0122	5.4e-06
+VALSYN-PWY: L-valine biosynthesis	0.0121	1.26e-05
+PWY-6124: inosine-5'-phosphate biosynthesis II	0.0119	1.2e-05
+PWY-6123: inosine-5'-phosphate biosynthesis I	0.0119	1.66e-05
+PWY-5686: UMP biosynthesis	0.0115	4.54e-06
+PWY66-400: glycolysis VI (metazoan)	0.0113	7.77e-05
+COA-PWY-1: coenzyme A biosynthesis II (mammalian)	0.0109	1.11e-05
+PWY-7229: superpathway of adenosine nucleotides de novo biosynthesis I	0.0102	3.16e-05
+PWY-6163: chorismate biosynthesis from 3-dehydroquinate	0.00991	2.37e-05
+PWY-7111: pyruvate fermentation to isobutanol (engineered)	0.00985	1.1e-05
+PWY-6122: 5-aminoimidazole ribonucleotide biosynthesis II	0.00973	1.22e-05
+PWY-6277: superpathway of 5-aminoimidazole ribonucleotide biosynthesis	0.00973	1.22e-05
+ASPASN-PWY: superpathway of L-aspartate and L-asparagine biosynthesis	0.00955	2.47e-06
+PWY-6700: queuosine biosynthesis	0.00932	3.47e-05
+PWY-6126: superpathway of adenosine nucleotides de novo biosynthesis II	0.00902	2.41e-05
+PANTO-PWY: phosphopantothenate biosynthesis I	0.00867	2.15e-05
+COA-PWY: coenzyme A biosynthesis I	0.00811	2.02e-05
+PANTOSYN-PWY: pantothenate and coenzyme A biosynthesis I	0.00808	2.05e-05
+ILEUSYN-PWY: L-isoleucine biosynthesis I (from threonine)	0.00798	3.26e-05
+PWY-4242: pantothenate and coenzyme A biosynthesis III	0.0077	1.96e-05
+PWY-6121: 5-aminoimidazole ribonucleotide biosynthesis I	0.00755	1.8e-05
+PWY-6125: superpathway of guanosine nucleotides de novo biosynthesis II	0.00734	1.23e-05
+PWY66-399: gluconeogenesis III	0.00725	0.000215
+PWY-7220: adenosine deoxyribonucleotides de novo biosynthesis II	0.00706	1.59e-05
+PWY-7222: guanosine deoxyribonucleotides de novo biosynthesis II	0.00706	1.59e-05
+PWY-7208: superpathway of pyrimidine nucleobases salvage	0.00704	3.13e-05
+PWY-6151: S-adenosyl-L-methionine cycle I	0.00703	1.63e-05
+PWY-5097: L-lysine biosynthesis VI	0.00682	1.13e-05
