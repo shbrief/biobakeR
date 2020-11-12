@@ -16,8 +16,3 @@ getOutput(
 \description{
 Download output
 }
-\examples{
-fname <- "wmgx_report.pdf"
-
-
-}

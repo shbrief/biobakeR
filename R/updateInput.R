@@ -57,6 +57,7 @@
 #'             InputRead1Files = input,
 #'             InputMetadataFile = inputMeta)
 #'
+#'
 updateInput <- function(accountEmail, billingProjectName, workspaceName,
                         AdapterType,
                         ProjectName,

@@ -1,10 +1,6 @@
 #' Download output
 #'
 #'
-#' @examples
-#' fname <- "wmgx_report.pdf"
-#'
-#'
 getOutput <- function(accountEmail, billingProjectName, workspaceName,
                       submissionId = NULL, keyword = NULL, dest_dir = ".") {
     gcloud_account(accountEmail)

@@ -1,3 +1,19 @@
+.jobs <- function(x) {
+    succeeded <- 0L
+    failed <- 0L
+    if ("Succeeded" %in% names(x$workflowStatuses))
+        succeeded <- x$workflowStatuses$Succeeded
+    if ("Failed" %in% names(x$workflowStatuses))
+        failed <- x$workflowStatuses$Failed
+
+    list(submissionId = x[["submissionId"]],
+         submitter = x[["submitter"]],
+         submissionDate = x[["submissionDate"]],
+         status = x[["status"]],
+         succeeded = succeeded,
+         failed = failed)
+}
+
 #' Check the status of submitted jobs
 #'
 #' @import AnVIL
@@ -33,24 +49,43 @@ monitorSubmission <- function(accountEmail, billingProjectName, workspaceName,
     if (resp$status_code == 505) {stop("Internet error.")}
 
     ## Parse the output
-    parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "UTF-8"),
-                                 simplifyVector = FALSE)
-    res <- sapply(parsed, function(x) {
-        structure(list(status = x$status,
-                       submissionData = x$submissionDate,
-                       submissionId = x$submissionId))
-    })
-
-    if (length(res) == 0) {
-        stop("There is no previously submitted job.", call. = FALSE)
-    }
-
-    if (isFALSE(mostRecentOnly)) {
-        return(as.data.frame(res))
+    submissions <- httr::content(resp, encoding = "UTF-8")
+    if (length(submissions)) {
+        submissions <- lapply(submissions, .jobs)
     } else {
-        ordered <- res["submissionData",] %>% as.character
-        ordered <- order(ordered, decreasing = TRUE)
-        recent_res <- res[,ordered][,1]
-        return(recent_res)
+        submissions <- list(submissionId = x[["submissionId"]],
+                            submitter = x[["submitter"]],
+                            submissionDate = x[["submissionDate"]],
+                            status = x[["status"]],
+                            succeeded = succeeded,
+                            failed = failed)
     }
+
+    bind_rows(submissions) %>%
+        mutate(
+            submissionDate =
+                .POSIXct(as.numeric(
+                    as.POSIXct(.data$submissionDate, "%FT%T", tz="UTC")
+                ))
+        ) %>%
+        arrange(desc(.data$submissionDate))
+
+    # res <- sapply(submissions, function(x) {
+    #     structure(list(status = x$status,
+    #                    submissionData = x$submissionDate,
+    #                    submissionId = x$submissionId))
+    # })
+    #
+    # if (length(res) == 0) {
+    #     stop("There is no previously submitted job.", call. = FALSE)
+    # }
+    #
+    # if (isFALSE(mostRecentOnly)) {
+    #     return(as.data.frame(res))
+    # } else {
+    #     ordered <- res["submissionData",] %>% as.character
+    #     ordered <- order(ordered, decreasing = TRUE)
+    #     recent_res <- res[,ordered][,1]
+    #     return(recent_res)
+    # }
 }
