@@ -1,5 +1,5 @@
 ---
-title: "bioBakeryR: Run bioBakery workflow on Terra using R"
+title: "biobakeR: Run bioBakery workflow on Terra using R"
 author: "Sehyun Oh"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
@@ -15,14 +15,14 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r echo=FALSE}
 suppressPackageStartupMessages({
-  library(bioBakeryR)
+  library(biobakeR)
   library(AnVIL)
   library(SummarizedExperiment)
 })
-source('~/data2/bioBakeryR/R/getOutput.R')
-dest_dir <- "~/data2/bioBakeryR/inst/extdata/outputs"
-HSM7J4NY_dir <- "~/data2/bioBakeryR/inst/extdata/outputs/HSM7J4NY"
-data_dir <- "~/data2/bioBakeryR/inst/extdata/outputs/data"
+source('~/data2/biobakeR/R/getOutput.R')
+dest_dir <- "~/data2/biobakeR/inst/extdata/outputs"
+HSM7J4NY_dir <- "~/data2/biobakeR/inst/extdata/outputs/HSM7J4NY"
+data_dir <- "~/data2/biobakeR/inst/extdata/outputs/data"
 ```
 
 # Overview
@@ -30,22 +30,22 @@ data_dir <- "~/data2/bioBakeryR/inst/extdata/outputs/data"
 of workflows and tasks for executing common microbial community analyses using standardized, 
 validated tools and parameters. bioBakery is built and maintained by [Huttenhower lab](http://huttenhower.sph.harvard.edu/).
 
-For typical R users with limited computing resources, we introduce bioBakeryR workflow
+For R users with limited computing resources, we introduce biobakeR workflow
 package. This package allows users to run Whole Metagenome Shotgun (wmgx) workflow 
-version 3 on Google Cloud without writing any workflow, installing softwares, nad 
+version 3 on Google Cloud without writing any workflow, installing softwares, nor 
 managing cloud resources. The computing resource is managed by [Terra](https://app.terra.bio/#), 
 a cloud-based genomics platform, and users only need to setup their account only
-once at the beginning to use bioBakeryR.
+once at the beginning to use biobakeR.
 
 **0. Pre-requisite**   
 You need [Terra account setup](https://support.terra.bio/hc/en-us/articles/360034677651-Account-setup-and-exploring-Terra). 
 The email address linked to Terra account and the billing project name are required 
-to use bioBakeryR package.   
+to use biobakeR package.   
 
 **1. Input**   
 1-1. `cloneWorkspace` function copies the template workspace containing the bioBakery
 workflow. Workspace is the main building block of [Terra](https://app.terra.bio/#), 
-where different resources are delivered through. For bioBakeryR, the 'template' 
+where different resources are delivered through. For biobakeR, the 'template' 
 workspace is where default workflow is store and users will have their own copy 
 of it, where they can modify, compute, and save their own results.   
 1-2. `updateInput` function takes user's inputs. There are two required inputs: `ProjectName` 
@@ -69,9 +69,9 @@ be saved in Google bucket.
 Here are the basic input parameters used in this example.
 
 ```{r}
-accountEmail = "shbrief@gmail.com"
-billingProjectName = "waldronlab-terra-rstudio"
-workspaceName = "mtx_workflow_biobakery_ver3"
+accountEmail <- "shbrief@gmail.com"
+billingProjectName <- "waldronlab-terra-rstudio"
+workspaceName <- "mtx_workflow_biobakery_ver3"
 ```
 
 # Setup
@@ -108,7 +108,7 @@ input <- "gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/IBDMDB/ibdmdb_file_list.t
 read.table(gsutil_pipe(input), sep  = "\t")
 ```
 
-`inputMeta` contains the metadata of the samples and the optional input for bioBakeryR. 
+`inputMeta` contains the metadata of the samples and the optional input for biobakeR. 
 
 ```{r warning=FALSE}
 inputMeta <- "gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/IBDMDB/ibdmdb_demo_metadata.txt"
@@ -235,7 +235,7 @@ You can download any file using `getOutput` function. Here, we narrow down the
 download to HSM7J4NY sample's `.tsv` output files.
 
 ```{r eval=FALSE}
-HSM7J4NY_dir <- "~/data2/bioBakeryR/inst/extdata/outputs/HSM7J4NY"
+HSM7J4NY_dir <- "~/data2/biobakeR/inst/extdata/outputs/HSM7J4NY"
 getOutput(accountEmail, billingProjectName, workspaceName, submission_id, 
           keyword = "HSM7J4NY.*.tsv", dest_dir = HSM7J4NY_dir)
 ```
@@ -296,7 +296,7 @@ listOutput(accountEmail, billingProjectName, workspaceName, submission_id,
 
 Output files for visualization is saved in `ibdmdb_test_visualizations.zip`.
 ```{r eval=FALSE}
-dest_dir <- "~/data2/bioBakeryR/inst/extdata/outputs"
+dest_dir <- "~/data2/biobakeR/inst/extdata/outputs"
 getOutput(accountEmail, billingProjectName, workspaceName, submission_id, 
           keyword = "visualization", dest_dir = dest_dir)
 unzip(file.path(dest_dir, "ibdmdb_test_visualizations.zip"), exdir = dest_dir)
@@ -389,7 +389,7 @@ including average abundance and variance.
 taxo_profile <- read.csv(file.path(data_dir, "metaphlan_taxonomic_profiles.tsv"),
                          sep = "\t", header = TRUE)
 taxo_profile <- tibble::column_to_rownames(taxo_profile, var = "X..taxonomy")
-meta <- read.table("~/data2/bioBakeryR/inst/extdata/ibdmdb_demo_metadata.txt", 
+meta <- read.table("~/data2/biobakeR/inst/extdata/ibdmdb_demo_metadata.txt", 
                    sep = "\t", header = TRUE)
 colData <- DataFrame(meta)
 ```

@@ -1,5 +1,7 @@
 #' Check the current input arguments
 #'
+#' This function does the same job as \code{AnVIL::avworkflow_configuration}.
+#'
 #' @import AnVIL
 #' @import httr
 #'
@@ -20,34 +22,37 @@ currentInput <- function(accountEmail, billingProjectName, workspaceName,
                          inputOnly = TRUE) {
     gcloud_account(accountEmail)
     gcloud_project(billingProjectName)
-    terra <- Terra()
 
-    # status <- terra$status()
-    # if (status$status_code != 200) {
-    #     stop()
+    # terra <- Terra()
+    #
+    # resp <- terra$getWorkspaceMethodConfig(
+    #     workspaceNamespace = billingProjectName,
+    #     workspaceName = workspaceName,
+    #     configNamespace = "mtx_workflow_biobakery_version3",
+    #     configName = "mtx_workflow_biobakery_version3"
+    # )
+    # if (http_type(resp) != "application/json") {
+    #     stop("API did not return json", call. = FALSE)
+    # }
+    #
+    # ## Parse the output
+    # parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "UTF-8"),
+    #                              simplifyVector = FALSE)
+    #
+    # if (http_error(resp)) {
+    #     stop(sprintf("Terra API request failed [%s]\n%s\n<%s>",
+    #                  status_code(resp),
+    #                  parsed$message,
+    #                  parsed$documentation_url),
+    #          call. = FALSE)
     # }
 
-    resp <- terra$getWorkspaceMethodConfig(
-        workspaceNamespace = billingProjectName,
-        workspaceName = workspaceName,
-        configNamespace = "mtx_workflow_biobakery_version3",
-        configName = "mtx_workflow_biobakery_version3"
+    parsed <- AnVIL::avworkflow_configuration(
+        configuration_namespace = "mtx_workflow_biobakery_version3",
+        configuration_name = "mtx_workflow_biobakery_version3",
+        namespace = billingProjectName,
+        name = workspaceName
     )
-    if (http_type(resp) != "application/json") {
-        stop("API did not return json", call. = FALSE)
-    }
-
-    ## Parse the output
-    parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "UTF-8"),
-                                 simplifyVector = FALSE)
-
-    if (http_error(resp)) {
-        stop(sprintf("Terra API request failed [%s]\n%s\n<%s>",
-                     status_code(resp),
-                     parsed$message,
-                     parsed$documentation_url),
-             call. = FALSE)
-    }
 
     ## Return the whole method configuration
     if (isFALSE(inputOnly)) {return(parsed)}

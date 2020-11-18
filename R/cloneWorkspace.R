@@ -17,7 +17,7 @@ cloneWorkspace <- function(accountEmail, billingProjectName, workspaceName) {
 
     resp <- terra$cloneWorkspace(
         workspaceNamespace = "waldronlab-terra-rstudio",
-        workspaceName = "mtx_workflow_biobakery_ver3",
+        workspaceName = "mtx_workflow_biobakery_version3_template",
         namespace = billingProjectName,
         name = workspaceName,
         attributes = AnVIL::empty_object
