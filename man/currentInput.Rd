@@ -18,7 +18,7 @@ files list and the paths to input files will be returned. If it's set to \code{F
 the whole method configuration will be returned.}
 }
 \description{
-Check the current input arguments
+This function does the same job as \code{AnVIL::avworkflow_configuration}.
 }
 \examples{
 currentInput(accountEmail = "shbrief@gmail.com",
