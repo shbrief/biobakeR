@@ -167,9 +167,8 @@ submissions
 To abort the most recently submitted job:
 
 ```{r}
-recent_submissionId <- submissions$submissionId[1]
 abortSubmission(accountEmail, billingProjectName, workspaceName,
-                submissionId = recent_submissionId)
+                submissionId = submissions$submissionId[1])
 ```
 
 

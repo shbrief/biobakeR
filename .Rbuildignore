@@ -2,3 +2,7 @@
 ^\.Rproj\.user$
 ^vignettes/bioBakeryR_Build\.Rmd$
 ^inst/script/Terra_Dashboard\.R$
+^Terra_Dashboard\.R$
+^update\.sh$
+^ibdmbd_test_visualizations*$
+^inst/extdata/outputs/figures$

@@ -2,3 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+
+inst/extdata/outputs/figures
+ibdmdb_test_visualizations*
+vignettes/rsconnect/*
