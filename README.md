@@ -10,3 +10,5 @@ on Google Cloud without writing any workflow, installing softwares, nor managing
 resources. The computing resource is managed by [Terra](https://app.terra.bio/#),
 a cloud-based genomics platform, and users only need to setup their account only
 once at the beginning to use biobakeR.
+
+You can find out how to use this package [here](https://rpubs.com/shbrief/bioBakeryR).
