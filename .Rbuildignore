@@ -4,5 +4,8 @@
 ^inst/script/Terra_Dashboard\.R$
 ^Terra_Dashboard\.R$
 ^update\.sh$
-^ibdmbd_test_visualizations*$
 ^inst/extdata/outputs/figures$
+^\.github$
+^rpubs\.com/rpubs/Publish Document\.dcf$
+^temp\.R$
+^R/archive$
