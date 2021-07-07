@@ -8,7 +8,7 @@ biobakery_currentInput(
   accountEmail,
   billingProjectName,
   workspaceName,
-  inputOnly = TRUE
+  allConfig = FALSE
 )
 }
 \arguments{
@@ -18,9 +18,9 @@ biobakery_currentInput(
 
 \item{workspaceName}{Name of the workspace}
 
-\item{inputOnly}{Under the default (\code{TRUE}), the file path to the input
-files list and the paths to input files will be returned. If it's set to \code{FALSE},
-the whole method configuration will be returned.}
+\item{allConfig}{Under the default (\code{FALSE}), the file path to the input
+files list and the paths to input files will be returned. If it's set to
+\code{TRUE}, the whole method configuration will be returned.}
 }
 \description{
 Check the current input arguments

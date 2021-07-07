@@ -16,7 +16,7 @@ editor_options:
 ---
 
 ```{r echo=FALSE}
-dir <- system.file("extdata", package = "bioBakeryR")
+dir <- system.file("extdata", package = "biobakeR")
 datePath <- file.path(dir, "date_of_last_update.txt")
 
 con <- file(datePath, "r")
@@ -28,8 +28,8 @@ Below is the description on input and ouput of the bioBakeryR workflow last upda
 on `r date`.
 
 ```{r echo=FALSE, collapse=FALSE}
-dir <- system.file("extdata", package = "bioBakeryR")
-desc <- readRDS(file.path(dir, "desc.rds"))
+dir <- system.file("extdata", package = "biobakeR")
+desc <- readRDS(file.path(dir, "dashboard.rds"))
 cat(desc)
 ```
 
