@@ -1,0 +1,39 @@
+{
+  "namespace": "mtx_workflow_biobakery_version3",
+  "name": "mtx_workflow_biobakery_version3",
+  "deleted": false,
+  "methodConfigVersion": 8,
+  "workspaceName": "",
+  "methodRepoMethod": {
+    "methodName": "mtx_workflow_biobakery_version3",
+    "methodVersion": 18,
+    "methodNamespace": "mtx_workflow_biobakery_version3",
+    "methodUri": "agora://mtx_workflow_biobakery_version3/mtx_workflow_biobakery_version3/18",
+    "sourceRepo": "agora"
+  },
+  "outputs": {},
+  "inputs": {
+    "workflowMTX.dataType": "",
+    "workflowMTX.inputRead1Files": "",
+    "workflowMTX.MaxMemGB_QualityControlTasks": "",
+    "workflowMTX.inputExtension": "\".fastq.gz\"",
+    "workflowMTX.versionSpecifichumanDB": "\"gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/databases/kneaddata/Homo_sapiens_hg37_and_human_contamination_Bowtie2_v0.1.tar.gz\"",
+    "workflowMTX.versionSpecificUtilityMapping": "\"gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/databases/humann/full_mapping_v201901.tar.gz\"",
+    "workflowMTX.versionSpecificrrnaDB": "\"gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/databases/kneaddata/SILVA_128_LSUParc_SSUParc_ribosomal_RNA_v0.2.tar.gz\"",
+    "workflowMTX.customQCDB1": "",
+    "workflowMTX.inputRead1Identifier": "\"_R1\"",
+    "workflowMTX.versionSpecifictrancriptDB": "\"gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/databases/kneaddata/Homo_sapiens_hg38_transcriptome_Bowtie2_v0.1.tar.gz\"",
+    "workflowMTX.preemptibleAttemptsOverride": "",
+    "workflowMTX.inputRead2Identifier": "\"_R2\"",
+    "workflowMTX.ProjectName": "",
+    "workflowMTX.MaxMemGB_TaxonomicProfileTasks": "",
+    "workflowMTX.versionSpecificChocophlan": "\"gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/databases/humann/full_chocophlan.v296_201901.tar.gz\"",
+    "workflowMTX.customQCDB2": "",
+    "workflowMTX.bypassFunctionalProfiling": "",
+    "workflowMTX.MaxMemGB_FunctionalProfileTasks": "",
+    "workflowMTX.inputMetadataFile": "",
+    "workflowMTX.versionSpecificUniRef90": "\"gs://fc-07ee4ddc-5b5b-46f6-bed7-809aa14bb012/databases/humann/uniref90_annotated_v201901.tar.gz\"",
+    "workflowMTX.AdapterType": "\"NexteraPE\""
+  },
+  "prerequisites": {}
+}
