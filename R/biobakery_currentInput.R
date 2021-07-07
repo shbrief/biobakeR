@@ -22,7 +22,7 @@ biobakery_currentInput <- function(accountEmail,
                                              inputOnly = FALSE)
 
     ## Return the whole method configuration
-    if (isFALSE(allConfig)) {
+    if (isTRUE(allConfig)) {
         return(parsed)
     } else {
         ## Return only the input part of the method configuration
