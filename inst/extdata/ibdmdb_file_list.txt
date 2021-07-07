@@ -1,6 +1,6 @@
-gs://fc-7130738a-5cde-4238-b00a-e07eba6047f2/IBDMDB/HSM7J4NY_R1.fastq.gz
-gs://fc-7130738a-5cde-4238-b00a-e07eba6047f2/IBDMDB/HSMA33OT_R1.fastq.gz
-gs://fc-7130738a-5cde-4238-b00a-e07eba6047f2/IBDMDB/MSM6J2QD_R1.fastq.gz
-gs://fc-7130738a-5cde-4238-b00a-e07eba6047f2/IBDMDB/CSM9X23N_R1.fastq.gz
-gs://fc-7130738a-5cde-4238-b00a-e07eba6047f2/IBDMDB/HSM6XRQY_R1.fastq.gz
-gs://fc-7130738a-5cde-4238-b00a-e07eba6047f2/IBDMDB/HSMA33KE_R1.fastq.gz
+gs://run_terra_workflow/IBDMDB/HSM7J4NY_R1.fastq.gz
+gs://run_terra_workflow/IBDMDB/HSMA33OT_R1.fastq.gz
+gs://run_terra_workflow/IBDMDB/MSM6J2QD_R1.fastq.gz
+gs://run_terra_workflow/IBDMDB/CSM9X23N_R1.fastq.gz
+gs://run_terra_workflow/IBDMDB/HSM6XRQY_R1.fastq.gz
+gs://run_terra_workflow/IBDMDB/HSMA33KE_R1.fastq.gz
