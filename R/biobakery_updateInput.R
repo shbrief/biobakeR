@@ -21,11 +21,13 @@
 #'
 #' @import AnVIL
 #' @import httr
+#' @import RunTerraWorkflow
 #' @importFrom jsonlite unbox
 #'
-#' @param accountEmail Email linked to Terra account
-#' @param billingProjectName Name of the billing project
 #' @param workspaceName Name of the workspace
+#' @param ProjectName The name of the sequencing project. The final output
+#' report and zip archive will use this name (only alphanumeric characters
+#' allowed).
 #' @param InputRead1Files A file path (in google bucket) with a list of all of
 #' the read1 files. This file must have the full paths to all of the files and
 #' is only expected to include the read1 files (not those for read2). The names
@@ -39,29 +41,30 @@
 #' the figures with metadata. Default is \code{NULL}.
 #' @param AdapterType The type of adapter to filter. Available options are
 #' "NexteraPE", "TruSeq2", and "TruSeq3".
-#' @param ProjectName The name of the sequencing project. The final output
-#' report and zip archive will use this name (only alphanumeric characters
-#' allowed).
 #' @param InputExtension The extension for all of the input files. Default is
 #' \code{.fastq.gz}.
 #' @param InputRead1Identifier The identifier in the file name for those files
 #' that are read1. Default is \code{.R1}.
 #' @param InputRead2Identifier The identifier in the file name for those files
 #' that are read2. Default is \code{.R2}.
+#' @param accountEmail Email linked to Terra account
+#' @param billingProjectName Name of the billing project
 #'
 #' @export
-biobakery_updateInput <- function(accountEmail,
-                                  billingProjectName,
-                                  workspaceName,
+biobakery_updateInput <- function(workspaceName,
                                   ProjectName,
                                   InputRead1Files,
                                   InputMetadataFile = NULL,
                                   AdapterType = "NexteraPE",
                                   InputExtension = ".fastq.gz",
                                   InputRead1Identifier = "_R1",
-                                  InputRead2Identifier = "_R2") {
-    gcloud_account(accountEmail)
-    gcloud_project(billingProjectName)
+                                  InputRead2Identifier = "_R2",
+                                  accountEmail = gcloud_account(), 
+                                  billingProjectName = gcloud_project()) {
+    ## Setup gcloud account/project
+    RunTerraWorkflow::setCloudEnv(accountEmail = accountEmail, 
+                                  billingProjectName = billingProjectName,
+                                  message = FALSE)
     rawls <- Rawls()
 
     ## Import template
@@ -69,12 +72,13 @@ biobakery_updateInput <- function(accountEmail,
     template <- readRDS(file.path(dir, "wtx_input_template.rds"))
 
     ## Update inputs
-    template$workflowMTX.AdapterType <- paste0('"', AdapterType, '"')
-    template$workflowMTX.ProjectName <- paste0('"', ProjectName, '"')
-    template$workflowMTX.inputExtension <- paste0('"', InputExtension, '"')
-    template$workflowMTX.inputRead1Identifier <- paste0('"', InputRead1Identifier, '"')
-    template$workflowMTX.inputRead2Identifier <- paste0('"', InputRead2Identifier, '"')
-    template$workflowMTX.inputRead1Files <- paste0('"', InputRead1Files, '"')
+    makeString <- function(x) paste0('"', x, '"')
+    template$workflowMTX.AdapterType <- makeString(AdapterType)
+    template$workflowMTX.ProjectName <- makeString(ProjectName)
+    template$workflowMTX.inputExtension <- makeString(InputExtension)
+    template$workflowMTX.inputRead1Identifier <- makeString(InputRead1Identifier)
+    template$workflowMTX.inputRead2Identifier <- makeString(InputRead2Identifier)
+    template$workflowMTX.inputRead1Files <- makeString(InputRead1Files)
 
     ## Format inputs
     inputList <- jsonlite::unbox(as.data.frame(template))
@@ -85,8 +89,8 @@ biobakery_updateInput <- function(accountEmail,
     }
 
     ## Other metadata - not for update
-    currentInput <- currentInput(accountEmail, billingProjectName, workspaceName,
-                                 inputOnly = FALSE)
+    currentInput <- RunTerraWorkflow::currentInput(workspaceName,
+                                                   inputOnly = FALSE)
     methodRepoMethod <- jsonlite::unbox(as.data.frame(currentInput$methodRepoMethod))
     methodConfigVersion <- jsonlite::unbox(currentInput$methodConfigVersion)
     deleted <- jsonlite::unbox(currentInput$deleted)

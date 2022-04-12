@@ -5,8 +5,6 @@
 \title{Update input}
 \usage{
 biobakery_updateInput(
-  accountEmail,
-  billingProjectName,
   workspaceName,
   ProjectName,
   InputRead1Files,
@@ -14,14 +12,12 @@ biobakery_updateInput(
   AdapterType = "NexteraPE",
   InputExtension = ".fastq.gz",
   InputRead1Identifier = "_R1",
-  InputRead2Identifier = "_R2"
+  InputRead2Identifier = "_R2",
+  accountEmail = gcloud_account(),
+  billingProjectName = gcloud_project()
 )
 }
 \arguments{
-\item{accountEmail}{Email linked to Terra account}
-
-\item{billingProjectName}{Name of the billing project}
-
 \item{workspaceName}{Name of the workspace}
 
 \item{ProjectName}{The name of the sequencing project. The final output
@@ -52,6 +48,10 @@ that are read1. Default is \code{.R1}.}
 
 \item{InputRead2Identifier}{The identifier in the file name for those files
 that are read2. Default is \code{.R2}.}
+
+\item{accountEmail}{Email linked to Terra account}
+
+\item{billingProjectName}{Name of the billing project}
 }
 \description{
 bioBakeryR workflow takes input fastq file information as a file path (in

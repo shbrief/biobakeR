@@ -5,22 +5,22 @@
 \title{Check the current input arguments}
 \usage{
 biobakery_currentInput(
-  accountEmail,
-  billingProjectName,
   workspaceName,
-  allConfig = FALSE
+  allConfig = FALSE,
+  accountEmail = gcloud_account(),
+  billingProjectName = gcloud_project()
 )
 }
 \arguments{
+\item{workspaceName}{Name of the workspace}
+
+\item{allConfig}{Under the default (\code{FALSE}), the file path to the
+input files list and the paths to input files will be returned. If it's
+set to \code{TRUE}, the whole method configuration will be returned.}
+
 \item{accountEmail}{Email linked to Terra account}
 
 \item{billingProjectName}{Name of the billing project}
-
-\item{workspaceName}{Name of the workspace}
-
-\item{allConfig}{Under the default (\code{FALSE}), the file path to the input
-files list and the paths to input files will be returned. If it's set to
-\code{TRUE}, the whole method configuration will be returned.}
 }
 \description{
 Check the current input arguments

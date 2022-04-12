@@ -3,23 +3,25 @@
 #' @import RunTerraWorkflow
 #' @import AnVIL
 #'
+#' @param workspaceName Name of the workspace
+#' @param allConfig Under the default (\code{FALSE}), the file path to the
+#' input files list and the paths to input files will be returned. If it's
+#' set to \code{TRUE}, the whole method configuration will be returned.
 #' @param accountEmail Email linked to Terra account
 #' @param billingProjectName Name of the billing project
-#' @param workspaceName Name of the workspace
-#' @param allConfig Under the default (\code{FALSE}), the file path to the input
-#' files list and the paths to input files will be returned. If it's set to
-#' \code{TRUE}, the whole method configuration will be returned.
 #'
 #' @export
-biobakery_currentInput <- function(accountEmail,
-                                   billingProjectName,
-                                   workspaceName,
-                                   allConfig = FALSE) {
+biobakery_currentInput <- function(workspaceName,
+                                   allConfig = FALSE,
+                                   accountEmail = gcloud_account(),
+                                   billingProjectName = gcloud_project()) {
 
-    parsed <- RunTerraWorkflow::currentInput(accountEmail,
-                                             billingProjectName,
-                                             workspaceName,
-                                             inputOnly = FALSE)
+    ## Setup gcloud account/project
+    RunTerraWorkflow::setCloudEnv(accountEmail = accountEmail,
+                                  billingProjectName = billingProjectName,
+                                  message = FALSE)
+
+    parsed <- RunTerraWorkflow::currentInput(workspaceName, inputOnly = FALSE)
 
     ## Return the whole method configuration
     if (isTRUE(allConfig)) {

@@ -1,7 +1,7 @@
 Package: biobakeR
 Title: Run bioBakery workflows in Terra
-Version: 0.4.0
-Date: 2021-07-19
+Version: 0.5.0
+Date: 2022-04-12
 Authors@R: 
     person("Sehyun", "Oh", email = "shbrief@gmail.com", role = c("aut", "cre"))
 Description: This package allows remote access to bioBakery workflow implemented
@@ -9,7 +9,7 @@ Description: This package allows remote access to bioBakery workflow implemented
     setup and use flexible and scalable computing resources of Google cloud 
     platform managed by Terra.
 Depends:
-    R (>= 3.6.0) 
+    R (>= 4.1) 
 Imports:
     AnVIL,
     RunTerraWorkflow,
@@ -23,4 +23,4 @@ Suggests:
 License: Artistic-2.0
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1.9000
+RoxygenNote: 7.1.2
